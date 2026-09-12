@@ -125,12 +125,30 @@ Schema changes must use migrations.
 
 ---
 
+## Database Tooling
+
+**Status:** Accepted
+
+**Decision:** Use Drizzle ORM and Drizzle Kit for application persistence and reviewed PostgreSQL migrations.
+
+**Consequence:** Feature modules use repository abstractions over Drizzle, and schema changes are committed as reviewed migrations.
+
+---
+
+## Repository Tooling
+
+**Status:** Accepted
+
+**Decision:** Use pnpm workspaces and Turborepo for the monorepo.
+
+**Consequence:** Applications live under `apps/`, shared packages under `packages/`, and root quality commands run through Turborepo.
+
+---
+
 ## Pending Decisions
 
 The following must be decided before relevant implementation:
 
-* ORM/query builder
-* Monorepo package manager/tooling
 * Money representation
 * Queue/background job technology
 * Caching strategy

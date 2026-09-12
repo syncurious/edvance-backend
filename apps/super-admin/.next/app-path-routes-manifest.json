@@ -1,0 +1,6 @@
+{
+  "/api/schools/[schoolId]/route": "/api/schools/[schoolId]",
+  "/api/schools/route": "/api/schools",
+  "/_not-found/page": "/_not-found",
+  "/page": "/"
+}

@@ -33,6 +33,14 @@ SUPABASE_SERVICE_ROLE_KEY
 LOG_LEVEL
 ```
 
+For the initial School-management bootstrap, the backend also requires:
+
+```text
+SUPER_ADMIN_USER_IDS
+```
+
+This is a comma-separated allowlist of Supabase Auth user UUIDs. It is a temporary platform-access bridge while the documented Evdance domain identity and RBAC modules are introduced; it is server-only and deny-by-default when empty.
+
 Actual variables may evolve with infrastructure.
 
 ## Validation

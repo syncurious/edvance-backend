@@ -1,0 +1,51 @@
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
+import type { Request, Response } from 'express';
+import { ApplicationError } from '../exceptions/application.error.js';
+
+@Catch()
+export class AllExceptionsFilter implements ExceptionFilter {
+  catch(exception: unknown, host: ArgumentsHost): void {
+    const response = host.switchToHttp().getResponse<Response>();
+    const request = host.switchToHttp().getRequest<Request>();
+    const requestId = request.header('x-request-id') ?? crypto.randomUUID();
+    const applicationError =
+      exception instanceof ApplicationError ? exception : undefined;
+    const httpException =
+      exception instanceof HttpException ? exception : undefined;
+    const status =
+      applicationError?.status ??
+      httpException?.getStatus() ??
+      HttpStatus.INTERNAL_SERVER_ERROR;
+    const body = httpException?.getResponse();
+    const message =
+      applicationError?.message ??
+      (typeof body === 'object' && body && 'message' in body
+        ? String(body.message)
+        : 'An unexpected error occurred.');
+    response
+      .status(status)
+      .setHeader('x-request-id', requestId)
+      .json({
+        error: {
+          code:
+            applicationError?.code ??
+            (status === 401
+              ? 'UNAUTHORIZED'
+              : status === 403
+                ? 'FORBIDDEN'
+                : status === 404
+                  ? 'NOT_FOUND'
+                  : 'INTERNAL_ERROR'),
+          message,
+          details: applicationError?.details ?? null,
+          requestId,
+        },
+      });
+  }
+}
