@@ -1,6 +1,4 @@
 {
-  "/api/schools/[schoolId]/route": "app/api/schools/[schoolId]/route.js",
   "/api/schools/route": "app/api/schools/route.js",
-  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js"
 }
