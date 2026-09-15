@@ -39,6 +39,8 @@ export class AllExceptionsFilter implements ExceptionFilter {
               ? 'UNAUTHORIZED'
               : status === 403
                 ? 'FORBIDDEN'
+                : status === 400
+                  ? 'BAD_REQUEST'
                 : status === 404
                   ? 'NOT_FOUND'
                   : 'INTERNAL_ERROR'),
