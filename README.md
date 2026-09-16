@@ -28,30 +28,30 @@ Evdance's NestJS API. The repository root is the backend application.
 ## Project setup
 
 ```bash
-$ pnpm install
+$ yarn install
 ```
 
 ## Compile and run the project
 
 ```bash
 # development (watch mode)
-$ pnpm dev
+$ yarn dev
 
 # build and run the compiled backend
-$ pnpm build
-$ pnpm start
+$ yarn build
+$ yarn start
 ```
 
 ## Run tests
 
 ```bash
 # typecheck and lint
-$ pnpm typecheck
-$ pnpm lint
+$ yarn typecheck
+$ yarn lint
 
 # unit and E2E tests
-$ pnpm test
-$ pnpm test:e2e
+$ yarn test
+$ yarn test:e2e
 ```
 
 ## Deployment

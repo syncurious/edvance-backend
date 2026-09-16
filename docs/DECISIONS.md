@@ -157,12 +157,27 @@ Schema changes must use migrations.
 
 **Decision:** `Edvance-backend` is a single NestJS backend repository. The
 repository root contains `src`, `test`, Drizzle configuration and migrations.
-It uses direct pnpm commands rather than workspace filters or Turborepo.
+It uses direct package-manager commands rather than workspace filters or
+Turborepo.
 Frontend applications are external API consumers and are not part of this
 repository.
 
 **Consequence:** Backend domain types remain within the backend. OpenAPI is the
 authoritative contract for clients.
+
+---
+
+## Package Manager
+
+**Status:** Accepted
+
+**Date:** 2026-09-16
+
+**Decision:** Use Yarn Classic (v1) for dependency management and repository
+commands.
+
+**Consequence:** Commit `yarn.lock`; do not maintain pnpm workspace or lockfile
+configuration in this backend repository.
 
 ---
 

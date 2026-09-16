@@ -44,7 +44,7 @@ Edvance-backend/
 ├── package.json
 ├── tsconfig.json
 ├── .gitignore
-└── pnpm-lock.yaml
+└── yarn.lock
 ```
 
 ## Bootstrap Order
@@ -53,7 +53,7 @@ Initialize in this order:
 
 ```text
 1. Git repository
-2. pnpm package configuration
+2. Yarn package configuration
 3. TypeScript configuration
 4. ESLint
 5. Prettier
@@ -78,12 +78,12 @@ Do not generate all business modules during bootstrap.
 The repository should eventually support consistent commands such as:
 
 ```bash
-pnpm dev
-pnpm build
-pnpm lint
-pnpm typecheck
-pnpm test
-pnpm format
+yarn dev
+yarn build
+yarn lint
+yarn typecheck
+yarn test
+yarn format
 ```
 
 Database commands should also be standardized.
@@ -99,11 +99,11 @@ Never create or commit real credentials.
 Before feature development begins, verify:
 
 ```text
-pnpm install        ✓
-pnpm build          ✓
-pnpm typecheck      ✓
-pnpm lint           ✓
-pnpm test           ✓
+yarn install        ✓
+yarn build          ✓
+yarn typecheck      ✓
+yarn lint           ✓
+yarn test           ✓
 backend starts      ✓
 health endpoint     ✓
 Swagger works       ✓

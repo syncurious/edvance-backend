@@ -1,5 +1,0 @@
-# This file only configures pnpm's dependency-build allowlist. The repository is
-# a single backend package; it does not declare workspace packages.
-allowBuilds:
-  esbuild: true
-  '@scarf/scarf': false

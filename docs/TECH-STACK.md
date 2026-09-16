@@ -9,7 +9,7 @@ This repository is the Evdance NestJS backend. The repository root is the
 backend application; it is not a monorepo. Web, desktop and mobile clients are
 separate consumers of the versioned API and are not implemented here.
 
-Use pnpm directly for dependency management and project commands.
+Use Yarn directly for dependency management and project commands.
 
 ## Database
 
@@ -134,16 +134,16 @@ Pin the version at repository level.
 Only:
 
 ```text id="73h2ua"
-pnpm
+Yarn Classic (v1)
 ```
 
 Commit:
 
 ```text id="a1lm8k"
-pnpm-lock.yaml
+yarn.lock
 ```
 
-Do not generate npm/yarn/bun lockfiles.
+Do not generate npm/pnpm/bun lockfiles.
 
 ## Dependency Rule
 
