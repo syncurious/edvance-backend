@@ -3,32 +3,13 @@
 > **Status:** Accepted
 > AI agents must not replace these technologies without an explicit architecture decision.
 
-## Monorepo
+## Repository Scope
 
-```text id="x2k91a"
-pnpm workspaces
-+
-Turborepo
-```
+This repository is the Evdance NestJS backend. The repository root is the
+backend application; it is not a monorepo. Web, desktop and mobile clients are
+separate consumers of the versioned API and are not implemented here.
 
-Reasons:
-
-* fast package management
-* workspace dependency management
-* shared packages
-* build/test caching
-* good fit for multiple JS/TS applications
-
-## Applications
-
-```text id="p8e2mn"
-apps/
-├── backend       NestJS
-├── admin         Next.js
-├── super-admin   Next.js
-├── desktop       Electron + Next.js
-└── mobile        React Native CLI
-```
+Use pnpm directly for dependency management and project commands.
 
 ## Database
 

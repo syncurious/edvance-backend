@@ -19,11 +19,9 @@ Check:
 7. Is its security history acceptable?
 8. Is the dependency worth its maintenance cost?
 
-## Central Versions
+## Versions
 
-In the monorepo, keep dependency versions consistent where practical.
-
-Avoid applications using unnecessarily different versions of core libraries.
+Maintain a single, reviewed dependency set and lockfile for this backend.
 
 ## Major Dependencies
 

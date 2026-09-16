@@ -5,25 +5,11 @@
 ## Target Structure
 
 ```text
-evdance/
+Edvance-backend/
 ├── AGENTS.md
-├── DOCS.md
-├── BOOTSTRAP.md
-│
-├── apps/
-│   ├── backend/
-│   ├── admin/
-│   ├── super-admin/
-│   ├── desktop/
-│   └── mobile/
-│
-├── packages/
-│   ├── types/
-│   ├── constants/
-│   ├── validation/
-│   ├── utils/
-│   └── config/
-│
+├── src/
+├── test/
+├── drizzle/
 ├── docs/
 │   ├── PROJECT.md
 │   ├── PRD.md
@@ -56,8 +42,6 @@ evdance/
 │   └── features/
 │
 ├── package.json
-├── pnpm-workspace.yaml
-├── turbo.json
 ├── tsconfig.json
 ├── .gitignore
 └── pnpm-lock.yaml
@@ -69,23 +53,22 @@ Initialize in this order:
 
 ```text
 1. Git repository
-2. pnpm workspace
-3. Turborepo
-4. shared TypeScript configuration
-5. ESLint
-6. Prettier
-7. backend NestJS application
-8. environment validation
-9. logging
-10. error handling
-11. database + Drizzle
-12. Supabase integration
-13. authentication foundation
-14. authorization foundation
-15. Swagger/OpenAPI
-16. health checks
-17. testing infrastructure
-18. CI quality commands
+2. pnpm package configuration
+3. TypeScript configuration
+4. ESLint
+5. Prettier
+6. NestJS application
+7. environment validation
+8. logging
+9. error handling
+10. database + Drizzle
+11. Supabase integration
+12. authentication foundation
+13. authorization foundation
+14. Swagger/OpenAPI
+15. health checks
+16. testing infrastructure
+17. CI quality commands
 ```
 
 Do not generate all business modules during bootstrap.

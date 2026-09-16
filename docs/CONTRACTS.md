@@ -6,16 +6,9 @@ Clients and backend should agree on contracts without manually recreating the sa
 
 ## Shared Contracts
 
-Use shared packages for genuinely cross-application contracts.
-
-Conceptually:
-
-```text id="xbn5dp"
-packages/
-├── types/
-├── validation/
-└── constants/
-```
+This backend repository does not contain client shared packages. OpenAPI is the
+authoritative contract for external consumers; generated or client-owned types
+may be maintained in each consumer repository where useful.
 
 ## API Contracts
 

@@ -7,7 +7,7 @@
 Location:
 
 ```text id="9dwb3x"
-apps/backend
+Edvance-backend/
 ```
 
 ## Required Foundation

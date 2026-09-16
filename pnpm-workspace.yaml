@@ -1,8 +1,5 @@
-packages:
-  - apps/*
-  - packages/*
-
+# This file only configures pnpm's dependency-build allowlist. The repository is
+# a single backend package; it does not declare workspace packages.
 allowBuilds:
   esbuild: true
-  unrs-resolver: true
   '@scarf/scarf': false
