@@ -1,0 +1,319 @@
+{
+  "id": "0e5c4dff-b39b-4800-b536-f7136e10d838",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.schools": {
+      "name": "schools",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "code": {
+          "name": "code",
+          "type": "citext",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "legal_name": {
+          "name": "legal_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "display_name": {
+          "name": "display_name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ownership_type": {
+          "name": "ownership_type",
+          "type": "school_ownership_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "education_system": {
+          "name": "education_system",
+          "type": "school_education_system",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "education_level": {
+          "name": "education_level",
+          "type": "school_education_level[]",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "gender_type": {
+          "name": "gender_type",
+          "type": "school_gender_type",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "primary_email": {
+          "name": "primary_email",
+          "type": "citext",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "primary_phone": {
+          "name": "primary_phone",
+          "type": "varchar(16)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "website_url": {
+          "name": "website_url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "logo_file_id": {
+          "name": "logo_file_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "timezone": {
+          "name": "timezone",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'Asia/Karachi'"
+        },
+        "locale": {
+          "name": "locale",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'en-PK'"
+        },
+        "currency": {
+          "name": "currency",
+          "type": "char(3)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'PKR'"
+        },
+        "status": {
+          "name": "status",
+          "type": "school_status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'trial'"
+        },
+        "onboarded_at": {
+          "name": "onboarded_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "created_by": {
+          "name": "created_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_by": {
+          "name": "updated_by",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "row_version": {
+          "name": "row_version",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 1
+        }
+      },
+      "indexes": {
+        "schools_code_unique_idx": {
+          "name": "schools_code_unique_idx",
+          "columns": [
+            {
+              "expression": "code",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "schools_primary_email_unique_idx": {
+          "name": "schools_primary_email_unique_idx",
+          "columns": [
+            {
+              "expression": "primary_email",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "schools_status_idx": {
+          "name": "schools_status_idx",
+          "columns": [
+            {
+              "expression": "status",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "schools_created_at_idx": {
+          "name": "schools_created_at_idx",
+          "columns": [
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {
+        "schools_code_not_blank": {
+          "name": "schools_code_not_blank",
+          "value": "btrim(\"schools\".\"code\") <> ''"
+        },
+        "schools_legal_name_not_blank": {
+          "name": "schools_legal_name_not_blank",
+          "value": "btrim(\"schools\".\"legal_name\") <> ''"
+        },
+        "schools_display_name_not_blank": {
+          "name": "schools_display_name_not_blank",
+          "value": "btrim(\"schools\".\"display_name\") <> ''"
+        },
+        "schools_education_level_not_empty": {
+          "name": "schools_education_level_not_empty",
+          "value": "cardinality(\"schools\".\"education_level\") > 0"
+        },
+        "schools_primary_phone_e164": {
+          "name": "schools_primary_phone_e164",
+          "value": "\"schools\".\"primary_phone\" ~ '^\\+[1-9][0-9]{6,14}$'"
+        },
+        "schools_website_url_https": {
+          "name": "schools_website_url_https",
+          "value": "\"schools\".\"website_url\" IS NULL OR \"schools\".\"website_url\" ~ '^https://'"
+        }
+      },
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {
+    "public.school_education_level": {
+      "name": "school_education_level",
+      "schema": "public",
+      "values": [
+        "pre_primary",
+        "primary",
+        "elementary",
+        "secondary",
+        "higher_secondary",
+        "o_level",
+        "a_level"
+      ]
+    },
+    "public.school_education_system": {
+      "name": "school_education_system",
+      "schema": "public",
+      "values": [
+        "sindh_board",
+        "cambridge",
+        "ib",
+        "edexcel",
+        "mixed",
+        "other"
+      ]
+    },
+    "public.school_gender_type": {
+      "name": "school_gender_type",
+      "schema": "public",
+      "values": [
+        "coeducation",
+        "boys",
+        "girls"
+      ]
+    },
+    "public.school_ownership_type": {
+      "name": "school_ownership_type",
+      "schema": "public",
+      "values": [
+        "private",
+        "public",
+        "trust",
+        "ngo",
+        "other"
+      ]
+    },
+    "public.school_status": {
+      "name": "school_status",
+      "schema": "public",
+      "values": [
+        "trial",
+        "active",
+        "past_due",
+        "suspended",
+        "closed"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

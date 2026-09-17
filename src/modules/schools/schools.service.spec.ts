@@ -1,12 +1,29 @@
-import { SchoolsService } from './schools.service.js';
 import { SchoolsRepository, type SchoolRecord } from './schools.repository.js';
+import { SchoolsService } from './schools.service.js';
 
 const school: SchoolRecord = {
   id: '8a4c07de-390f-4fd5-806b-a5a17300f2e1',
-  name: 'Evdance Grammar School',
-  status: 'active',
+  code: 'evdance-grammar',
+  legalName: 'Evdance Grammar School (Private) Limited',
+  displayName: 'Evdance Grammar School',
+  ownershipType: 'private',
+  educationSystem: 'sindh_board',
+  educationLevels: ['primary', 'secondary'],
+  genderType: 'coeducation',
+  primaryEmail: 'admin@evdance.edu.pk',
+  primaryPhone: '+923001234567',
+  websiteUrl: 'https://www.evdance.edu.pk',
+  logoFileId: null,
+  timezone: 'Asia/Karachi',
+  locale: 'en-PK',
+  currency: 'PKR',
+  status: 'trial',
+  onboardedAt: null,
   createdAt: new Date('2026-01-01T00:00:00.000Z'),
+  createdBy: null,
   updatedAt: new Date('2026-01-01T00:00:00.000Z'),
+  updatedBy: null,
+  rowVersion: 1,
 };
 
 describe('SchoolsService', () => {
@@ -20,14 +37,32 @@ describe('SchoolsService', () => {
 
   beforeEach(() => jest.clearAllMocks());
 
-  it('creates an active school by default and trims its name', async () => {
+  it('creates a trial school by default and normalizes text inputs', async () => {
     jest.mocked(repository.create).mockResolvedValue(school);
     await expect(
-      service.create({ name: ' Evdance Grammar School ' }),
-    ).resolves.toMatchObject({ name: school.name, status: 'active' });
+      service.create({
+        code: ' evdance-grammar ',
+        legalName: ' Evdance Grammar School (Private) Limited ',
+        displayName: ' Evdance Grammar School ',
+        ownershipType: 'private',
+        educationSystem: 'sindh_board',
+        educationLevels: ['primary', 'secondary'],
+        genderType: 'coeducation',
+        primaryEmail: ' admin@evdance.edu.pk ',
+        primaryPhone: ' +923001234567 ',
+      }),
+    ).resolves.toMatchObject({ code: school.code, status: 'trial' });
     expect(repository.create).toHaveBeenCalledWith({
-      name: school.name,
-      status: 'active',
+      code: school.code,
+      legalName: school.legalName,
+      displayName: school.displayName,
+      ownershipType: school.ownershipType,
+      educationSystem: school.educationSystem,
+      educationLevels: school.educationLevels,
+      genderType: school.genderType,
+      primaryEmail: school.primaryEmail,
+      primaryPhone: school.primaryPhone,
+      status: 'trial',
     });
   });
 
@@ -44,7 +79,7 @@ describe('SchoolsService', () => {
       .mocked(repository.list)
       .mockResolvedValue({ schools: [school], total: 1 });
     await expect(service.list({ page: 1, limit: 20 })).resolves.toMatchObject({
-      data: [{ id: school.id }],
+      data: [{ id: school.id, displayName: school.displayName }],
       meta: { page: 1, limit: 20, total: 1, totalPages: 1 },
     });
   });

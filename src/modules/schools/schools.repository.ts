@@ -1,11 +1,33 @@
 import { Injectable } from '@nestjs/common';
 import { and, asc, count, desc, eq, ilike } from 'drizzle-orm';
-import type { SchoolStatus } from './school.types.js';
+import {
+  type SchoolEducationLevel,
+  type SchoolEducationSystem,
+  type SchoolGenderType,
+  type SchoolOwnershipType,
+  type SchoolStatus,
+} from './school.types.js';
 import { DatabaseService } from '../../infrastructure/database/database.service.js';
 import { schools } from '../../infrastructure/database/schema/schools.js';
 
 export type SchoolRecord = typeof schools.$inferSelect;
-export type CreateSchoolInput = { name: string; status: SchoolStatus };
+export type CreateSchoolInput = {
+  code: string;
+  legalName: string;
+  displayName: string;
+  ownershipType: SchoolOwnershipType;
+  educationSystem: SchoolEducationSystem;
+  educationLevels: SchoolEducationLevel[];
+  genderType: SchoolGenderType;
+  primaryEmail: string;
+  primaryPhone: string;
+  websiteUrl?: string;
+  logoFileId?: string;
+  timezone?: string;
+  locale?: string;
+  currency?: string;
+  status: SchoolStatus;
+};
 export type UpdateSchoolInput = Partial<CreateSchoolInput>;
 export type SchoolListInput = {
   page: number;
@@ -49,14 +71,16 @@ export class SchoolsRepository {
   ): Promise<{ schools: SchoolRecord[]; total: number }> {
     const where = and(
       input.status ? eq(schools.status, input.status) : undefined,
-      input.search ? ilike(schools.name, `%${input.search}%`) : undefined,
+      input.search
+        ? ilike(schools.displayName, `%${input.search}%`)
+        : undefined,
     );
     const [rows, totalRows] = await Promise.all([
       this.database.db
         .select()
         .from(schools)
         .where(where)
-        .orderBy(desc(schools.createdAt), asc(schools.name))
+        .orderBy(desc(schools.createdAt), asc(schools.displayName))
         .limit(input.limit)
         .offset((input.page - 1) * input.limit),
       this.database.db.select({ value: count() }).from(schools).where(where),
