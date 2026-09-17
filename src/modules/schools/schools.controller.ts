@@ -7,7 +7,6 @@ import {
   Patch,
   Post,
   Query,
-  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -15,7 +14,6 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { SuperAdminGuard } from '../../common/guards/super-admin.guard.js';
 import { CreateSchoolDto } from './dto/create-school.dto.js';
 import { SchoolQueryDto } from './dto/school-query.dto.js';
 import { UpdateSchoolDto } from './dto/update-school.dto.js';
@@ -23,7 +21,6 @@ import { SchoolsService } from './schools.service.js';
 
 @ApiTags('schools')
 @ApiBearerAuth()
-@UseGuards(SuperAdminGuard)
 @Controller('schools')
 export class SchoolsController {
   constructor(private readonly schoolsService: SchoolsService) {}
@@ -40,18 +37,18 @@ export class SchoolsController {
     return this.schoolsService.list(query);
   }
 
-  @Get(':schoolId')
+  @Get(':id')
   @ApiOkResponse({ description: 'School found.' })
-  async findOne(@Param('schoolId', new ParseUUIDPipe()) schoolId: string) {
-    return { data: await this.schoolsService.findOne(schoolId) };
+  async findOne(@Param('id', new ParseUUIDPipe()) id: string) {
+    return { data: await this.schoolsService.findOne(id) };
   }
 
-  @Patch(':schoolId')
+  @Patch(':id')
   @ApiOkResponse({ description: 'School updated.' })
   async update(
-    @Param('schoolId', new ParseUUIDPipe()) schoolId: string,
+    @Param('id', new ParseUUIDPipe()) id: string,
     @Body() input: UpdateSchoolDto,
   ) {
-    return { data: await this.schoolsService.update(schoolId, input) };
+    return { data: await this.schoolsService.update(id, input) };
   }
 }
