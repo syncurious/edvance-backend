@@ -1,20 +1,25 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import type { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import type { NextFunction, Request, Response } from 'express';
 import helmet from 'helmet';
+import { join } from 'node:path';
 import { AppModule } from './app.module.js';
 import { AppConfigService } from './config/config.service.js';
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter.js';
 import { ApplicationError } from './common/exceptions/application.error.js';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const config = app.get(AppConfigService);
   app.enableShutdownHooks();
   app.use(helmet());
   app.enableCors({ origin: config.corsOrigin, credentials: true });
   app.setGlobalPrefix('api/v1');
+  app.useStaticAssets(join(process.cwd(), 'dist', 'public'), {
+    prefix: '/api/docs/assets',
+  });
   app.use((request: Request, response: Response, next: NextFunction) => {
     response.setHeader(
       'x-request-id',
@@ -53,7 +58,10 @@ async function bootstrap() {
         .addBearerAuth()
         .build(),
     );
-    SwaggerModule.setup('api/docs', app, document);
+    SwaggerModule.setup('api/docs', app, document, {
+      customSiteTitle: 'Evdance API Reference',
+      customCssUrl: '/api/docs/assets/swagger/swagger-theme.css',
+    });
   }
   await app.listen(config.port);
 }

@@ -1,0 +1,64 @@
+:root {
+  --evdance-primary: #087f68;
+  --evdance-primary-dark: #096b54;
+  --evdance-background: #f6f8f8;
+  --evdance-foreground: #1b2b32;
+  --evdance-border: #e3e9e9;
+}
+
+body,
+.swagger-ui {
+  background: var(--evdance-background);
+  color: var(--evdance-foreground);
+  font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.swagger-ui .topbar {
+  background: var(--evdance-primary);
+  padding: 12px 0;
+}
+
+.swagger-ui .topbar .download-url-wrapper .select-label select,
+.swagger-ui .topbar .download-url-wrapper input[type='text'] {
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.swagger-ui .info .title,
+.swagger-ui .opblock-tag,
+.swagger-ui .opblock .opblock-summary-path,
+.swagger-ui .opblock .opblock-summary-description {
+  color: var(--evdance-foreground);
+}
+
+.swagger-ui .opblock-tag {
+  border-bottom-color: var(--evdance-border);
+}
+
+.swagger-ui .opblock.opblock-post {
+  background: #e6f4ee;
+  border-color: var(--evdance-primary);
+}
+
+.swagger-ui .opblock.opblock-post .opblock-summary-method,
+.swagger-ui .btn.authorize,
+.swagger-ui .btn.execute {
+  background: var(--evdance-primary);
+  border-color: var(--evdance-primary);
+  color: #fff;
+}
+
+.swagger-ui .btn.authorize svg {
+  fill: #fff;
+}
+
+.swagger-ui .btn.authorize:hover,
+.swagger-ui .btn.execute:hover {
+  background: var(--evdance-primary-dark);
+  border-color: var(--evdance-primary-dark);
+}
+
+.swagger-ui .model-box,
+.swagger-ui section.models {
+  background: #fff;
+  border-color: var(--evdance-border);
+}

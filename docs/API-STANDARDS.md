@@ -309,7 +309,18 @@ A new API version is for incompatible external contract changes that cannot reas
 
 ## Documentation
 
-API endpoints should be documented through the project's NestJS/OpenAPI strategy.
+API endpoints must be documented through the project's NestJS/OpenAPI strategy.
+
+Swagger UI is the single interactive API reference and is available outside
+production at:
+
+```text
+/api/docs
+```
+
+It uses the Evdance visual theme. Keep endpoint summaries, request/response
+schemas, authentication requirements, validation, and important errors current
+through NestJS Swagger decorators.
 
 Documentation must accurately represent:
 
