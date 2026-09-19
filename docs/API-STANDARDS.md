@@ -322,6 +322,20 @@ It uses the Evdance visual theme. Keep endpoint summaries, request/response
 schemas, authentication requirements, validation, and important errors current
 through NestJS Swagger decorators.
 
+## Authentication
+
+Protected endpoints accept a Supabase access token using the standard Bearer
+authentication scheme:
+
+```http
+Authorization: Bearer <supabase-access-token>
+```
+
+Clients sign in directly with Supabase Auth; Evdance does not expose an API that
+accepts or stores user passwords. `GET /api/v1/auth/me` validates the current
+Bearer token and returns the minimal verified identity. A valid token proves
+identity only and must still pass endpoint-specific authorization.
+
 Documentation must accurately represent:
 
 * request

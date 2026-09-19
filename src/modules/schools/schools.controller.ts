@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -14,6 +15,8 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { SuperAdminGuard } from '../../common/guards/super-admin.guard.js';
+import { AuthGuard } from '../auth/auth.guard.js';
 import { CreateSchoolDto } from './dto/create-school.dto.js';
 import { SchoolQueryDto } from './dto/school-query.dto.js';
 import { UpdateSchoolDto } from './dto/update-school.dto.js';
@@ -21,6 +24,7 @@ import { SchoolsService } from './schools.service.js';
 
 @ApiTags('schools')
 @ApiBearerAuth()
+@UseGuards(AuthGuard, SuperAdminGuard)
 @Controller('schools')
 export class SchoolsController {
   constructor(private readonly schoolsService: SchoolsService) {}
