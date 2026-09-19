@@ -46,6 +46,28 @@ Authorize Request
 
 A valid JWT does **not** automatically mean the request is authorized.
 
+## Initial Backend Authentication Foundation
+
+Clients authenticate directly with Supabase Auth and send the resulting access
+token to Evdance APIs as a Bearer token:
+
+```http
+Authorization: Bearer <supabase-access-token>
+```
+
+The backend does not accept or store user passwords and does not provide a
+duplicate login endpoint. `AuthGuard` verifies the token with Supabase once per
+protected request and attaches the minimal verified identity (`id`, `email`) to
+the request context. Controllers can consume that context with `@CurrentUser()`.
+
+`GET /api/v1/auth/me` is the initial protected session-check endpoint. It
+returns the verified identity only; it does not determine a user's Evdance
+roles, school, permissions, or campus scope.
+
+The temporary `SUPER_ADMIN_USER_IDS` allowlist remains a platform authorization
+bridge. It consumes the shared verified identity and will be replaced by the
+database-backed RBAC model.
+
 ## Tenant Context
 
 Authorization must resolve:
