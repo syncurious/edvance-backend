@@ -1,4 +1,3 @@
-import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import type { NestExpressApplication } from '@nestjs/platform-express';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -8,7 +7,7 @@ import { join } from 'node:path';
 import { AppModule } from './app.module.js';
 import { AppConfigService } from './config/config.service.js';
 import { AllExceptionsFilter } from './common/filters/all-exceptions.filter.js';
-import { ApplicationError } from './common/exceptions/application.error.js';
+import { createAppValidationPipe } from './common/pipes/app-validation.pipe.js';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -28,27 +27,7 @@ async function bootstrap() {
     next();
   });
   app.useGlobalFilters(new AllExceptionsFilter());
-  app.useGlobalPipes(
-    new ValidationPipe({
-      transform: true,
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      exceptionFactory: (errors) =>
-        new ApplicationError(
-          'VALIDATION_ERROR',
-          'Request validation failed.',
-          400,
-          {
-            fields: Object.fromEntries(
-              errors.map((error) => [
-                error.property,
-                Object.values(error.constraints ?? {}),
-              ]),
-            ),
-          },
-        ),
-    }),
-  );
+  app.useGlobalPipes(createAppValidationPipe());
   if (!config.isProduction) {
     const document = SwaggerModule.createDocument(
       app,

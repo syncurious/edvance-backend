@@ -7,6 +7,7 @@ Plan for:
 ```text
 local
 development
+test
 staging
 production
 ```
@@ -42,6 +43,9 @@ SUPER_ADMIN_USER_IDS
 This is a comma-separated allowlist of Supabase Auth user UUIDs. It is a temporary platform-access bridge while the documented Evdance domain identity and RBAC modules are introduced; it is server-only and deny-by-default when empty.
 
 Actual variables may evolve with infrastructure.
+
+`APP_ENV=local`, `development`, and `test` enable the development API testing
+token endpoint. `staging` and `production` block that endpoint with `404`.
 
 ## Validation
 

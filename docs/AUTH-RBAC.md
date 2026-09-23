@@ -55,10 +55,11 @@ token to Evdance APIs as a Bearer token:
 Authorization: Bearer <supabase-access-token>
 ```
 
-The backend does not accept or store user passwords and does not provide a
-duplicate login endpoint. `AuthGuard` verifies the token with Supabase once per
-protected request and attaches the minimal verified identity (`id`, `email`) to
-the request context. Controllers can consume that context with `@CurrentUser()`.
+The backend does not accept or store user passwords in normal application flows
+and does not provide a production login endpoint. `AuthGuard` verifies the token
+with Supabase once per protected request and attaches the minimal verified
+identity (`id`, `email`) to the request context. Controllers can consume that
+context with `@CurrentUser()`.
 
 `GET /api/v1/auth/me` is the initial protected session-check endpoint. It
 returns the verified identity only; it does not determine a user's Evdance
@@ -67,6 +68,19 @@ roles, school, permissions, or campus scope.
 The temporary `SUPER_ADMIN_USER_IDS` allowlist remains a platform authorization
 bridge. It consumes the shared verified identity and will be replaced by the
 database-backed RBAC model.
+
+### Development API testing token
+
+`POST /api/v1/auth/dev/token` is a development/testing-only API testing tool.
+It accepts an email and password, calls Supabase GoTrue's password grant using
+the server-side `SUPABASE_URL` and `SUPABASE_ANON_KEY`, and returns only the
+access token, refresh token, expiry, and token type.
+
+The endpoint is available only when `APP_ENV` is `local`, `development`, or
+`test`. It returns `404` without contacting Supabase in `staging` and
+`production`. It is limited to five requests per IP address per minute in each
+application process. Passwords and issued tokens must never be logged, and the
+endpoint must never use a Supabase service-role key.
 
 ## Tenant Context
 

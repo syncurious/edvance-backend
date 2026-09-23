@@ -15,6 +15,20 @@
       "when": 1789636157389,
       "tag": "0001_faithful_ghost_rider",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790153130000,
+      "tag": "0002_rbac_foundation",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1790155400000,
+      "tag": "0003_fix_school_phone_constraint",
+      "breakpoints": true
     }
   ]
 }

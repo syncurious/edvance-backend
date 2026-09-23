@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 const environmentSchema = z.object({
   APP_ENV: z
-    .enum(['local', 'development', 'staging', 'production'])
+    .enum(['local', 'development', 'test', 'staging', 'production'])
     .default('local'),
   PORT: z.coerce.number().int().positive().default(3000),
   DATABASE_URL: z.string().url(),
@@ -42,5 +42,9 @@ export class AppConfigService {
   }
   get isProduction(): boolean {
     return this.environment.APP_ENV === 'production';
+  }
+
+  get isDevelopmentOrTest(): boolean {
+    return ['local', 'development', 'test'].includes(this.environment.APP_ENV);
   }
 }

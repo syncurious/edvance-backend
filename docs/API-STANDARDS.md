@@ -331,10 +331,16 @@ authentication scheme:
 Authorization: Bearer <supabase-access-token>
 ```
 
-Clients sign in directly with Supabase Auth; Evdance does not expose an API that
-accepts or stores user passwords. `GET /api/v1/auth/me` validates the current
-Bearer token and returns the minimal verified identity. A valid token proves
-identity only and must still pass endpoint-specific authorization.
+Clients sign in directly with Supabase Auth; Evdance does not expose a
+production API that accepts or stores user passwords. `GET /api/v1/auth/me`
+validates the current Bearer token and returns the minimal verified identity. A
+valid token proves identity only and must still pass endpoint-specific
+authorization.
+
+For API testing only, `POST /api/v1/auth/dev/token` accepts a validated email
+and password and returns a Supabase token pair. It is restricted to `local`,
+`development`, and `test` environments, returns `404` in `staging` and
+`production`, and is rate-limited. It must not be used by production clients.
 
 Documentation must accurately represent:
 
